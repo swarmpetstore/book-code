@@ -1,0 +1,4 @@
+POSTGRESQL_HOST=catalogdb.petstore.svc
+POSTGRESQL_USER=catalog
+POSTGRESQL_PASSWORD=catalog
+POSTGRESQL_SCHEMA=catalogdb
