@@ -3,6 +3,7 @@ package org.packt.swarm.petstore.proxy;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandProperties;
+import com.netflix.hystrix.HystrixThreadPoolProperties;
 import org.packt.swarm.petstore.pricing.api.Price;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -26,7 +27,8 @@ public class PricingProxy {
         private final String itemId;
 
         public GetPriceCommand(String itemId) {
-            super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("pricing-service")));
+            super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("pricing-service"))
+                    .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter().withCoreSize(3)));
             this.itemId = itemId;
         }
 
