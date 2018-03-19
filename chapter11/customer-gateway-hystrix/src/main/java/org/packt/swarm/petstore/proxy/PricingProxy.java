@@ -26,9 +26,7 @@ public class PricingProxy {
         private final String itemId;
 
         public GetPriceCommand(String itemId) {
-            super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("pricing-service"))
-                    .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
-                            .withExecutionTimeoutInMilliseconds(100)));
+            super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("pricing-service")));
             this.itemId = itemId;
         }
 
