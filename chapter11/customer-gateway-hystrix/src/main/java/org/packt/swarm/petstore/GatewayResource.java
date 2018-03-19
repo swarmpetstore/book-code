@@ -20,8 +20,12 @@ public class GatewayResource {
     @Path("/catalog/item")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getItems() {
-        List<CatalogItemView> result = gatewayService.getItems();
-        return Response.ok(result).build();
+        try {
+            List<CatalogItemView> result = gatewayService.getItems();
+            return Response.ok(result).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
     }
 
 }
