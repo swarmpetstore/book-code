@@ -2,11 +2,11 @@ package org.packt.swarm.petstore.proxy;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
-import com.netflix.hystrix.HystrixCommandProperties;
 import com.netflix.hystrix.HystrixThreadPoolProperties;
 import org.packt.swarm.petstore.pricing.api.Price;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -19,7 +19,11 @@ public class PricingProxy {
     private final String targetPath = "http://pricing-service.petstore.svc:8080";
 
     public Price getPrice(String itemId){
-        return new GetPriceCommand(itemId).execute().readEntity(Price.class);
+        Response response = new GetPriceCommand(itemId).execute();
+        if(response.getStatus() != Response.Status.OK.getStatusCode()){
+            throw new WebApplicationException(response);
+        }
+        return response.readEntity(Price.class);
     }
 
     private class GetPriceCommand extends HystrixCommand<Response> {
@@ -37,6 +41,13 @@ public class PricingProxy {
             Client client = ClientBuilder.newClient();
             WebTarget target = client.target(targetPath + "/price/" + itemId);
             return target.request(MediaType.APPLICATION_JSON).get();
+        }
+
+        @Override
+        //1
+        protected Response getFallback() {
+            //2
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
         }
     }
 }
