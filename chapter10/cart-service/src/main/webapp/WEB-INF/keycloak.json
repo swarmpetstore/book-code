@@ -1,0 +1,5 @@
+{
+  "realm": "petstore",
+  "auth-server-url": "http://keycloak-petstore.192.168.42.217.xip.io/auth",
+  "resource": "petstore-ui"
+}
