@@ -17,7 +17,7 @@ public class CatalogService {
     private EntityManager em;
 
     public Item searchById(String itemId) {
-        return em.createNamedQuery("Item.findById", Item.class).setParameter("itemId", itemId).getResultList().get(0);
+        return em.createNamedQuery("Item.findById", Item.class).setParameter("itemId", itemId).getSingleResult();
     }
 
     public List<Item> getAll() {

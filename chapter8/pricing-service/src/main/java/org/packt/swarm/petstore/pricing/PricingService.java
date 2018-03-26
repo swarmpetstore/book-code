@@ -15,7 +15,6 @@ public class PricingService {
     private EntityManager em;
 
     public Price findByItemId(String itemId) {
-        List<Price> result = em.createNamedQuery("Price.findByItemId", Price.class).setParameter("itemId", itemId).getResultList();
-        return result.get(0);
+        return em.createNamedQuery("Price.findByItemId", Price.class).setParameter("itemId", itemId).getSingleResult();
     }
 }
