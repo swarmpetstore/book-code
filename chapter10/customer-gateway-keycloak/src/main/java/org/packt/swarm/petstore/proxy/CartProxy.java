@@ -16,17 +16,7 @@ import java.util.List;
 @ApplicationScoped
 public class CartProxy {
 
-    private static final String SERVICE_NAME = "cart-service";
-    private static final String NAMESPACE = "petstore";
-    private static final String SWARM_PORT = "8080";
-
-    private String targetPath;
-
-    @PostConstruct
-    public void init() {
-        String hostname = SERVICE_NAME + "." + NAMESPACE + ".svc";
-        targetPath = "http://" + hostname + ":" + SWARM_PORT;
-    }
+    private String targetPath = System.getProperty("proxy.cart.url");
 
     public List<org.packt.swarm.petstore.cart.api.CartItem> getCart(String customerId){
         Client client = ClientBuilder.newClient();
