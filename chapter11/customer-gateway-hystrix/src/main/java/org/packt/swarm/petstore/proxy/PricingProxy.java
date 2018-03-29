@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 @ApplicationScoped
 public class PricingProxy {
 
-    private final String targetPath = "http://pricing-service.petstore.svc:8080";
+    private String targetPath = System.getProperty("proxy.pricing.url");
 
     public Price getPrice(String itemId){
         Response response = new GetPriceCommand(itemId).execute();
