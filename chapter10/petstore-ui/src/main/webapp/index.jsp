@@ -23,7 +23,7 @@
            alert('No keycloak is running. Cannot continue.');
          }
       </script>
-      <script	type="text/babel" src="js/app.js"></script>
+      <script	type="text/babel" src="js/app.min.js"></script>
    </head>
    <body>
       <div id="container">
