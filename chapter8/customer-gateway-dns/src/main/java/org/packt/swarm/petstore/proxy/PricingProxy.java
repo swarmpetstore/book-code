@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 @ApplicationScoped
 public class PricingProxy {
 
-    private final String targetPath = "http://pricing-service.petstore.svc:8080";
+    private final String targetPath = System.getProperty("proxy.pricing.url");
 
     public Price getPrice(String itemId){
         Client client = ClientBuilder.newClient();

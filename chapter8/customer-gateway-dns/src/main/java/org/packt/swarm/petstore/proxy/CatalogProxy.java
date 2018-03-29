@@ -14,7 +14,7 @@ import java.util.List;
 @ApplicationScoped
 public class CatalogProxy {
 
-    private final String targetPath = "http://catalog-service.petstore.svc:8080";
+    private final String targetPath = System.getProperty("proxy.catalog.url");
 
     public List<CatalogItem> getAllItems(){
         Client client = ClientBuilder.newClient();
